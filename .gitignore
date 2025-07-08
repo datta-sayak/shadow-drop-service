@@ -1,6 +1,9 @@
 # Node modules
 node_modules/
 
+#public folder
+public/
+
 # Environment files
 .env
 

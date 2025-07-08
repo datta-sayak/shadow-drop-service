@@ -51,17 +51,19 @@ dataSchema.pre("save", async function (next){
     next();
 })
 
+
 dataSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
+
 
 dataSchema.pre('save', async function (next){
     if(!this.isModified("encryptedText") || !this.encryptedText) return next();
 
     try {
-        const KEY = Buffer.from(process.env.CIPHER_KEY, 'hex');
+        const KEY = Buffer.from( process.env.MASTER_KEY, 'hex' );
         const IV = Buffer.from(this.IVHEX, 'hex');
-        const cipher = crypto.createCipheriv(process.env.CIPHER_ALGORITHM, KEY, IV);
+        const cipher = await crypto.createCipheriv(process.env.CIPHER_ALGORITHM, KEY, IV);
 
         const encrypt = Buffer.concat([
             cipher.update(this.encryptedText, 'utf8'),
@@ -69,13 +71,28 @@ dataSchema.pre('save', async function (next){
         ])
 
         this.encryptedText = encrypt.toString("hex");
-        this.IV = IV.toString("hex");
         next();
     } catch (error) {
         throw new ApiError(500,"Encryption failed: " + error.message);
         //return next(error);
     }
 })
+
+
+dataSchema.methods.decrypt = async function () {
+    const KEY = this.password;
+    const IV = Buffer.from(this.IVHEX, 'hex');
+    const text = Buffer.from(this.encryptedText, 'hex');
+
+    const decipher = crypto.createDecipheriv(process.env.CIPHER_ALGORITHM, KEY, IV);
+
+    const decryptedText = Buffer.concat([
+        decipher.update(text),
+        decipher.final()
+    ])
+
+    return decryptedText.toString('utf8');
+}
 
 
 export const SecretData = mongoose.model("SecretData", dataSchema);
