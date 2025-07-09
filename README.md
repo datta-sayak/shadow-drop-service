@@ -54,7 +54,7 @@ Content-Type: application/json
 {
     "expireTime": "<TIME_IN_MIN>",
     "password": "<ENTER_PASSWORD>",
-    "text": "<TEXT_MESSAGE>"
+    "text": "<TEXT_MESSAGE>",
 }
 ```
 
@@ -64,7 +64,7 @@ Content-Type: application/json
     "statusCode": 201,
     "data": "http://localhost:8000/api/v1/download/FFF5p6h9Rd",
     "message": "Text uploaded successfully",
-    "status": "success"
+    "status": "success",
 }
 ```  
   
@@ -73,12 +73,12 @@ Content-Type: application/json
 ### 2. 📤 Upload File
 
 ```http  
-POST /api/v1/upload/file  
+POST api/v1/upload/file  
 Content-Type: multipart/form-data  
 ```  
 
 #### Request Fields:
-- `expireTime`: Time after which both the file and its access link will be automatically			            deleted.
+- `expireTime`: Time after which both the file and its access link will be automatically deleted.
 - `password`: This password must be entered to unlock the link and initiate the file download.
 - `secretFile`: Upload the file you want to share
 
@@ -88,7 +88,7 @@ Content-Type: multipart/form-data
     "statusCode": 201,
     "data": "http://localhost:8000/api/v1/download/1iGaV3fuTm",
     "message": "File uploaded successfully",
-    "status": "success"
+    "status": "success",
 }
 ```  
   
@@ -97,14 +97,14 @@ Content-Type: multipart/form-data
 ### 3. 📥 Download Data
 
 ```http  
-GET api/v1/download/:shortUrl  
+GET api/v1/download/:shortUrl
 Content-Type: application/json  
 ```  
 
 #### Request Body:
 ```json  
 {  
- "password": "hunter2"}
+ "password": "<ENTER_PASSWORD>"},
 }  
 ```  
 
@@ -115,7 +115,7 @@ Content-Type: application/json
     "statusCode": 200,
     "data": "<TEXT_MESSAGE>",
     "message": "Text fetched successfully",
-    "status": "success"
+    "status": "success",
 }  
 ```
 - If **file**:
