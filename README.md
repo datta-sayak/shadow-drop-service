@@ -3,14 +3,7 @@
 A minimalist backend service for securely sharing one‐time secrets and files with **password protection**, **AES-256 encryption**, and **automatic expiration** using MongoDB TTL indexes.
 
 
-## 🚀 Prerequisites
-
-- Node.js v16 or higher
-- npm or yarn
-- MongoDB instance (local or remote)
-
-
-## ⚙️ Installation
+## Installation
 
 ```bash  
 git clone https://github.com/datta-sayak/shadow-drop-service.git
@@ -19,7 +12,7 @@ npm install		#or: yarn install
 ```
 
 
-## 🧪 Configuration
+## Configuration
 
 Create a `.env` file in the root, sample given in `.env.sample`
 
@@ -31,7 +24,7 @@ Create a `.env` file in the root, sample given in `.env.sample`
 | `PORT`             | Port on which the server listens           |    
 
 
-## 🔧 Running the Server
+## Running the Server
 
 ### Development (with hot reload):
 
@@ -40,13 +33,13 @@ npm run dev
   ```
 The API will be available at: `http://localhost:<PORT>`
 
-## 📡 API Endpoints
+## API Endpoints
 
-### 1. 📤 Upload Text
+### 1. Upload Text
 
 ```http  
 POST api/v1/upload/text
-Content-Type: application/json  
+Content-Type: application/json
 ```  
 
 #### Request Body:
@@ -70,11 +63,11 @@ Content-Type: application/json
   
 ---  
 
-### 2. 📤 Upload File
+### 2. Upload File
 
 ```http  
-POST api/v1/upload/file  
-Content-Type: multipart/form-data  
+POST api/v1/upload/file
+Content-Type: multipart/form-data
 ```  
 
 #### Request Fields:
@@ -94,11 +87,11 @@ Content-Type: multipart/form-data
   
 ---  
 
-### 3. 📥 Download Data
+### 3. Download Data
 
 ```http  
 GET api/v1/download/:shortUrl
-Content-Type: application/json  
+Content-Type: application/json
 ```  
 
 #### Request Body:
